@@ -1,3 +1,128 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Tambahkan CSS kustom yang belum bisa dikonversi ke Tailwind di sini */
+/* Ini adalah langkah terakhir jika kelas Tailwind tidak cukup atau jika JS punya ketergantungan kuat */
+/* Sebisa mungkin, hindari ini dan gunakan kelas Tailwind */
+
+/* Variabel CSS (disarankan untuk menggunakan konfigurasi Tailwind theme untuk ini) */
+/*
+:root {
+    --header-height: 3.5rem;
+    --black-color: #141e43;
+    --black-color-light: rgb(25, 38, 83);
+    --black-color-lighten: #dde3f3;
+    --white-color: rgb(235, 235, 235);
+    --body-color: rgb(235, 235, 235);
+
+    --body-font: "Poppins", sans-serif; // Configure di tailwind.config.js
+    --normal-font-size: 0.938rem; // Configure di tailwind.config.js
+
+    --font-regular: 400;
+    --font-semi-bold: 600;
+
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+*/
+
+/* Kelas-kelas yang digerakkan JavaScript atau kompleks */
+.show-menu {
+    opacity: 1;
+    top: 3.5rem;
+    pointer-events: initial;
+}
+
+.show-icon .nav__burger {
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+.show-icon .nav__close {
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+/* Jika Anda ingin menggunakan 'max-height-1000' yang tidak standar Tailwind */
+.max-height-1000 {
+    max-height: 1000px !important; /* Gunakan !important jika perlu menimpa inline style */
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Jika Anda ingin mengonversi @media screen dan (max-width: 1118px) untuk nav__menu */
+@media screen and (max-width: 1118px) {
+    .nav__menu {
+        position: absolute;
+        left: 0;
+        top: 2.5rem;
+        width: 100%;
+        height: calc(100vh - 3.5rem);
+        overflow: auto;
+        pointer-events: none;
+        opacity: 0;
+        transition: top 0.4s, opacity 0.3s;
+    }
+    .nav__menu::-webkit-scrollbar {
+        width: 0;
+    }
+    .nav__list {
+        background-color: #141e43; /* var(--black-color) */
+        padding-top: 1rem;
+    }
+}
+
+/* Jika Anda ingin mengonversi @media screen and (min-width: 1118px) untuk nav */
+@media screen and (min-width: 1118px) {
+    .nav {
+        height: calc(3.5rem + 2rem); /* calc(var(--header-height) + 2rem) */
+        display: flex;
+        justify-content: space-between;
+    }
+    .nav__toggle {
+        display: none;
+    }
+    .nav__list {
+        height: 100%;
+        display: flex;
+        column-gap: 3rem;
+    }
+    .nav__link {
+        height: 100%;
+        padding: 0;
+        justify-content: initial;
+        column-gap: 0.25rem;
+    }
+    .dropdown__menu,
+    .dropdown__submenu {
+        max-height: initial;
+        overflow: initial;
+        position: absolute;
+        left: 0;
+        top: 6rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s, top 0.3s;
+    }
+    .dropdown__link,
+    .dropdown__sublink {
+        padding-inline: 1rem 3.5rem;
+    }
+    .dropdown_subitem .dropdown_link {
+        padding-inline: 1rem;
+    }
+    .dropdown__submenu {
+        position: absolute;
+        left: 100%;
+        top: 0.5rem;
+    }
+    .dropdown_item:hover .dropdown_menu {
+        opacity: 1;
+        top: 5.5rem;
+        pointer-events: initial;
+        transition: top 0.3s;
+    }
+}
