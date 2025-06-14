@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pelatihan', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pelatihan');
+            $table->string('poster')->nullable();
             $table->string('deskripsi');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
