@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Admin Dashboard' }} - VillWork</title>
+    <title>{{ $title ?? 'Admin Panel' }} - VillWork</title>
     {{-- Livewire Styles --}}
     @livewireStyles
 </head>
@@ -11,39 +11,41 @@
     <div id="admin-layout">
         <aside id="sidebar">
             <header>
-                <a href="{{ route('admin.dashboard') }}">Admin VillWork</a>
+                <a href="#">Admin VillWork</a>
             </header>
             <nav>
                 <ul>
-                    <li>
-                        {{-- Link ke Dashboard Admin --}}
-                        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
-                    </li>
-                    <li>
-                        {{-- Link ke halaman pengelolaan Pelatihan --}}
-                        <a href="{{ route('admin.pelatihan.index') }}">Kelola Pelatihan</a>
-                    </li>
-                    <li>
-                        {{-- Nanti bisa ditambahkan link lain, misal Kelola User --}}
-                        <a href="#">Kelola User</a>
-                    </li>
-                    <li>
-                        <hr>
-                        {{-- Form untuk Logout --}}
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit">Logout</button>
-                        </form>
-                    </li>
+                    {{-- Tampilkan link ini hanya jika admin sudah login --}}
+                    @auth('admin')
+                        <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ route('admin.pelatihan.index') }}">Kelola Pelatihan</a></li>
+                        <li><a href="#">Kelola User</a></li>
+                        <li>
+                            <hr>
+                            <form method="POST" action="#">
+                                @csrf
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                    @endauth
                 </ul>
             </nav>
         </aside>
 
         <main id="main-content">
             <header>
-                <h1>{{ $title ?? 'Dashboard' }}</h1>
+                <h1>{{ $title ?? 'Login Admin' }}</h1>
                 <div>
-                    Selamat datang, {{ auth()->user()->name }}
+                    {{--
+                        INI BAGIAN YANG DIPERBAIKI
+                        Gunakan @auth untuk mengecek apakah user sudah login
+                        sebelum mencoba menampilkan namanya.
+                    --}}
+                    @auth('admin')
+                        Selamat datang, {{ auth('admin')->user()->nama }}
+                    @else
+                        Silakan login untuk melanjutkan
+                    @endauth
                 </div>
             </header>
 
