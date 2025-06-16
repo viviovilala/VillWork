@@ -26,10 +26,11 @@ class Lowongan extends Model
     // Daftarkan semua kolom yang boleh diisi melalui form.
     protected $fillable = [
         'user_id',
-        'judul',
+        'judul_lowongan',
         'deskripsi',
         'lokasi',
-        'status',
+        'gaji',
+        'tanggal_mulai',
     ];
 
     /**

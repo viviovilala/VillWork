@@ -53,6 +53,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::any('pelatihan', AdminPelatihanIndex::class)->name('pelatihan.index');
         Route::any('pelatihan/create', AdminPelatihanForm::class)->name('pelatihan.create');
         Route::any('pelatihan/{pelatihan}/edit', AdminPelatihanForm::class)->name('pelatihan.edit');
+        Route::any('users', \App\Livewire\Admin\User\Index::class)->name('user.index');
+        Route::any('lowongan', \App\Livewire\Admin\Lowongan\Index::class)->name('lowongan.index');
+        Route::any('lamaran', \App\Livewire\Admin\Lamaran\Index::class)->name('lamaran.index');
 
         // RUTE BARU UNTUK LOGOUT ADMIN
         Route::post('logout', function (Request $request) {

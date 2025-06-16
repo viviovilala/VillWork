@@ -1,9 +1,9 @@
 <?php
 
+// File: app/Livewire/Admin/Pelatihan/Index.php
 namespace App\Livewire\Admin\Pelatihan;
 
 use App\Models\Pelatihan;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
@@ -18,16 +18,13 @@ class Index extends Component
 
     public string $search = '';
 
-    // Listener ini akan me-refresh data setelah form disimpan
     #[On('pelatihan-saved')]
     public function refreshPelatihanList() {}
 
     public function delete(int $id): void
     {
         $pelatihan = Pelatihan::findOrFail($id);
-        if ($pelatihan->poster) {
-            Storage::disk('public')->delete($pelatihan->poster);
-        }
+        // Logika untuk menghapus file dari storage sudah dihapus
         $pelatihan->delete();
         session()->flash('success', 'Pelatihan berhasil dihapus.');
     }

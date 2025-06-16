@@ -1,5 +1,11 @@
 <div>
     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+        @if (session('success'))
+            <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <form wire:submit="save" class="space-y-6">
             {{-- Nama Pelatihan --}}
             <div>
@@ -15,25 +21,7 @@
                 <x-input-error :messages="$errors->get('deskripsi')" class="mt-2" />
             </div>
 
-            {{-- Poster Pelatihan --}}
-            <div>
-                <x-input-label for="poster" :value="__('Poster Pelatihan')" />
-                <input type="file" id="poster" wire:model="poster" class="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
-                <div wire:loading wire:target="poster" class="text-sm text-gray-500 mt-1">Mengunggah...</div>
-                <x-input-error :messages="$errors->get('poster')" class="mt-2" />
-
-                @if ($poster)
-                    <div class="mt-4">
-                        <p class="text-sm font-medium text-gray-700">Pratinjau Gambar Baru:</p>
-                        <img src="{{ $poster->temporaryUrl() }}" class="w-48 h-auto mt-2 rounded">
-                    </div>
-                @elseif ($existingPoster)
-                    <div class="mt-4">
-                        <p class="text-sm font-medium text-gray-700">Poster Saat Ini:</p>
-                        <img src="{{ asset('storage/' . $existingPoster) }}" class="w-48 h-auto mt-2 rounded">
-                    </div>
-                @endif
-            </div>
+            {{-- BLOK UNTUK POSTER SUDAH DIHAPUS SEPENUHNYA --}}
 
             {{-- Tanggal Mulai dan Selesai --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
