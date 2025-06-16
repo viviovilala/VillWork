@@ -56,33 +56,39 @@
 </div>
 
 @push('scripts')
-{{-- INI BAGIAN YANG DIPERBAIKI --}}
-<script src="[https://cdn.jsdelivr.net/npm/chart.js](https://cdn.jsdelivr.net/npm/chart.js)"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    document.addEventListener('livewire:initialized', () => {
-        const initialData = @json($initialChartData);
-        const canvasElement = document.getElementById('pelatihanChart');
+    document.addEventListener('DOMContentLoaded', function () {
+        const chartData = @json($initialChartData);
+        console.log('Chart data:', chartData);
 
-        if (canvasElement) {
-            const ctx = canvasElement.getContext('2d');
-            const pelatihanChart = new Chart(ctx, {
+        const canvas = document.getElementById('pelatihanChart');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: initialData.labels,
+                    labels: chartData.labels,
                     datasets: [{
-                        label: 'Pelatihan Baru',
-                        data: initialData.data,
+                        label: 'Jumlah Pelatihan',
+                        data: chartData.data,
                         backgroundColor: 'rgba(59, 130, 246, 0.5)',
                         borderColor: 'rgba(59, 130, 246, 1)',
                         borderWidth: 1
                     }]
                 },
                 options: {
-                    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
                     responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
                 }
             });
         }
     });
 </script>
 @endpush
+
