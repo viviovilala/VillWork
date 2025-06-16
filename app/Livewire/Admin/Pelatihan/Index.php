@@ -1,6 +1,8 @@
 <?php
 
 // File: app/Livewire/Admin/Pelatihan/Index.php
+// Pastikan file PHP Anda sudah sama seperti ini.
+
 namespace App\Livewire\Admin\Pelatihan;
 
 use App\Models\Pelatihan;
@@ -8,34 +10,45 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\On;
+use App\Exports\PelatihanExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 #[Layout('layouts.admin')]
 #[Title('Kelola Pelatihan')]
 class Index extends Component
 {
     use WithPagination;
-
     public string $search = '';
 
-    #[On('pelatihan-saved')]
-    public function refreshPelatihanList() {}
-
-    public function delete(int $id): void
+    public function export()
     {
-        $pelatihan = Pelatihan::findOrFail($id);
-        // Logika untuk menghapus file dari storage sudah dihapus
-        $pelatihan->delete();
-        session()->flash('success', 'Pelatihan berhasil dihapus.');
+        return Excel::download(new PelatihanExport, 'laporan-pelatihan.xlsx');
     }
 
     public function render()
     {
-        $pelatihans = Pelatihan::where('nama_pelatihan', 'like', '%' . $this->search . '%')
-            ->latest()
-            ->paginate(10);
+        // 1. Ambil data untuk tabel (dengan pagination)
+        $pelatihansForTable = Pelatihan::where('nama_pelatihan', 'like', '%' . $this->search . '%')
+            ->latest()->paginate(10);
+
+        // 2. Siapkan data untuk grafik (semua data, tanpa pagination)
+        $pelatihansForChart = Pelatihan::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        // 3. Kemas data chart ke dalam sebuah array
+        $initialChartData = [
+            'labels' => $pelatihansForChart->pluck('date')->map(fn($date) => Carbon::parse($date)->format('d M Y')),
+            'data' => $pelatihansForChart->pluck('count')
+        ];
+
+        // 4. Kirim kedua set data ke view
         return view('livewire.admin.pelatihan.index', [
-            'pelatihans' => $pelatihans
+            'pelatihans' => $pelatihansForTable,
+            'initialChartData' => $initialChartData,
         ]);
     }
 }

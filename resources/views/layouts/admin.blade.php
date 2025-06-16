@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Admin Panel' }} - VillWork</title>
-    {{-- INI BAGIAN YANG DIPERBAIKI: URL Tailwind CSS sekarang sudah benar --}}
+    <title>Admin VillWork</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    @livewireStyles
-</head>
+<link rel="icon" type="image/png" href="{{ asset('storage/logowhite.png') }}">
+@livewireStyles</head>
 <body class="bg-gray-100">
     <div class="flex">
         {{-- Sidebar --}}
         <aside class="w-64 bg-gray-800 text-white min-h-screen p-4 flex flex-col justify-between">
             <div>
-                <a href="{{ route('admin.dashboard') }}" class="text-white text-2xl font-bold mb-8 block">Admin VillWork</a>
-                <nav>
+<a href="{{ route('admin.dashboard') }}" class="flex items-center text-white text-2xl font-bold mb-8">
+    <img src="{{ asset('storage/logowhite.png') }}" alt="Logo VillWork" class="h-20 w-20 mr-3">
+    <span>Admin VillWork</span>
+</a>                <nav>
                     @auth('admin')
                         <ul class="space-y-2">
                             <li><a href="{{ route('admin.dashboard') }}" class="block p-2 rounded hover:bg-gray-700">Dashboard</a></li>
@@ -30,7 +31,7 @@
                 <div>
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
-                        <button type="submit" class="w-full text-left p-2 rounded hover:bg-red-500">Logout</button>
+                        <button type="submit" class="box text-center bg-red-600 w-full text-left p-2 rounded hover:bg-red-500 text-a">Logout</button>
                     </form>
                 </div>
             @endauth
@@ -42,7 +43,7 @@
                 <h2 class="text-2xl font-semibold">{{ $title ?? 'Halaman Admin' }}</h2>
                 <div>
                     @auth('admin')
-                        <span>Selamat datang, {{ auth('admin')->user()->nama }}</span>
+                        <span>Selamat datang, KING</span>
                     @endauth
                 </div>
             </header>
@@ -53,5 +54,6 @@
         </main>
     </div>
     @livewireScripts
+    @stack('scripts')
 </body>
 </html>
