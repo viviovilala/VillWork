@@ -4,58 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Admin Panel' }} - VillWork</title>
-    {{-- Livewire Styles --}}
+    <script src="https://cdn.tailwindcss.com"></script>
     @livewireStyles
 </head>
-<body>
-    <div id="admin-layout">
-        <aside id="sidebar">
-            <header>
-                <a href="#">Admin VillWork</a>
-            </header>
-            <nav>
-                <ul>
-                    {{-- Tampilkan link ini hanya jika admin sudah login --}}
+<body class="bg-gray-100">
+    <div class="flex">
+        {{-- Sidebar --}}
+        <aside class="w-64 bg-gray-800 text-white min-h-screen p-4 flex flex-col justify-between">
+            <div>
+                <a href="{{ route('admin.dashboard') }}" class="text-white text-2xl font-bold mb-8 block">Admin VillWork</a>
+                <nav>
                     @auth('admin')
-                        <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ route('admin.pelatihan.index') }}">Kelola Pelatihan</a></li>
-                        <li><a href="#">Kelola User</a></li>
-                        <li>
-                            <hr>
-                            <form method="POST" action="#">
-                                @csrf
-                                <button type="submit">Logout</button>
-                            </form>
-                        </li>
+                        <ul class="space-y-2">
+                            <li><a href="{{ route('admin.dashboard') }}" class="block p-2 rounded hover:bg-gray-700">Dashboard</a></li>
+                            <li><a href="{{ route('admin.pelatihan.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Pelatihan</a></li>
+                        </ul>
                     @endauth
-                </ul>
-            </nav>
+                </nav>
+            </div>
+            @auth('admin')
+                <div>
+                    <form method="POST" action="{{ route('admin.logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full text-left p-2 rounded hover:bg-red-500">Logout</button>
+                    </form>
+                </div>
+            @endauth
         </aside>
 
-        <main id="main-content">
-            <header>
-                <h1>{{ $title ?? 'Login Admin' }}</h1>
+        {{-- Konten Utama --}}
+        <main class="flex-1 p-10">
+            <header class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-semibold">{{ $title ?? 'Halaman Admin' }}</h2>
                 <div>
-                    {{--
-                        INI BAGIAN YANG DIPERBAIKI
-                        Gunakan @auth untuk mengecek apakah user sudah login
-                        sebelum mencoba menampilkan namanya.
-                    --}}
                     @auth('admin')
-                        Selamat datang, {{ auth('admin')->user()->nama }}
-                    @else
-                        Silakan login untuk melanjutkan
+                        <span>Selamat datang, {{ auth('admin')->user()->name }}</span>
                     @endauth
                 </div>
             </header>
-
-            {{-- Di sinilah konten dari setiap halaman akan dimuat --}}
+            
+            {{-- KONTEN DINAMIS DARI SETIAP HALAMAN AKAN MUNCUL DI SINI --}}
             {{ $slot }}
 
         </main>
     </div>
-
-    {{-- Livewire Scripts --}}
     @livewireScripts
 </body>
 </html>

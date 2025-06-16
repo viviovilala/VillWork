@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request; // <-- Tambahkan import ini
+use Illuminate\Support\Facades\Auth; // <-- Tambahkan import ini
 
 // Import controller bawaan Breeze
 use App\Http\Controllers\ProfileController;
@@ -15,42 +17,22 @@ use App\Livewire\Admin\Pelatihan\Form as AdminPelatihanForm;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| File ini mengatur semua URL untuk aplikasi Anda, memisahkan
-| jalur untuk tamu, user biasa, dan admin.
-|
 */
 
-// ====================================================================
-// RUTE PUBLIK (Bisa diakses semua orang)
-// ====================================================================
+// RUTE PUBLIK
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home'); // Beri nama rute ini 'home'
 
-
-// ====================================================================
-// RUTE UNTUK USER BIASA
-// ====================================================================
-
-// Rute otentikasi Bawaan Laravel Breeze (login, register, dll untuk USER)
-// Ini akan meng-handle URL seperti /login, /register, /forgot-password
+// RUTE OTENTIKASI USER BIASA (DARI BREEZE)
+// Logout untuk user biasa sudah otomatis mengarah ke '/'
 require __DIR__ . '/auth.php';
 
-// Grup rute ini hanya bisa diakses oleh USER yang sudah login.
-// `middleware('auth')` secara default menggunakan guard 'web'.
+// RUTE UNTUK USER YANG SUDAH LOGIN
 Route::middleware('auth')->group(function () {
-    // Dashboard untuk user biasa
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
-    // Rute lain untuk user biasa
-    Route::get('/lamaran', function () {
-        return view('lamaran');
-    })->name('lamaran');
-
-    // Rute profil bawaan
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -60,24 +42,27 @@ Route::middleware('auth')->group(function () {
 // ====================================================================
 // RUTE UNTUK ADMIN (Sistem Terpisah)
 // ====================================================================
-
-// Semua rute di grup ini akan memiliki awalan URL /admin dan nama admin.
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    // Rute untuk tamu ADMIN (yang belum login).
-    // `guest:admin` memastikan hanya admin yang belum login yang bisa akses halaman ini.
     Route::middleware('guest:admin')->group(function () {
         Route::get('login', AdminLogin::class)->name('login');
     });
 
-    // Rute untuk ADMIN yang sudah login.
-    // `auth:admin` memastikan hanya admin yang sudah login yang bisa akses halaman ini.
     Route::middleware('auth:admin')->group(function () {
-        Route::get('dashboard', AdminDashboard::class)->name('dashboard');
-        Route::get('pelatihan', AdminPelatihanIndex::class)->name('pelatihan.index');
-        Route::get('pelatihan/create', AdminPelatihanForm::class)->name('pelatihan.create');
-        Route::get('pelatihan/{pelatihan}/edit', AdminPelatihanForm::class)->name('pelatihan.edit');
+        Route::any('dashboard', AdminDashboard::class)->name('dashboard');
+        Route::any('pelatihan', AdminPelatihanIndex::class)->name('pelatihan.index');
+        Route::any('pelatihan/create', AdminPelatihanForm::class)->name('pelatihan.create');
+        Route::any('pelatihan/{pelatihan}/edit', AdminPelatihanForm::class)->name('pelatihan.edit');
 
-        // Anda juga bisa menambahkan rute logout khusus admin di sini jika perlu.
+        // RUTE BARU UNTUK LOGOUT ADMIN
+        Route::post('logout', function (Request $request) {
+            Auth::guard('admin')->logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            // Redirect ke halaman utama
+            return redirect('/');
+        })->name('logout');
     });
 });
