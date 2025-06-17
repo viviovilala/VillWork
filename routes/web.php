@@ -50,7 +50,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('auth:admin')->group(function () {
         Route::any('dashboard', AdminDashboard::class)->name('dashboard');
-        Route::any('pelatihan', AdminPelatihanIndex::class)->name('pelatihan.index');
+        Route::get('peserta-pelatihan', App\Livewire\Admin\PesertaPelatihan\Index::class)->name('peserta-pelatihan.index');        Route::any('pelatihan', AdminPelatihanIndex::class)->name('pelatihan.index');
         Route::any('pelatihan/create', AdminPelatihanForm::class)->name('pelatihan.create');
         Route::any('pelatihan/{pelatihan}/edit', AdminPelatihanForm::class)->name('pelatihan.edit');
         Route::any('users', \App\Livewire\Admin\User\Index::class)->name('user.index');

@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('lamaran', function (Blueprint $table) {
             $table->id();
-            $table->string('linkedin')->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('lowongan_id')->constrained('lowongan')->cascadeOnDelete();
             $table->enum('status', ['Diproses', 'Diterima', 'Ditolak'])->default('Diproses');
             $table->text('pesan');
-            $table->string('cv_path');
             $table->timestamps();
         });
     }

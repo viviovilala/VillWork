@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire\Admin\Lamaran;
 
 use App\Models\Lamaran;
@@ -7,27 +8,68 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 
+// Tambahkan use statement yang diperlukan
+use App\Exports\LamaransExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 #[Layout('layouts.admin')]
 #[Title('Kelola Lamaran')]
 class Index extends Component
 {
-use WithPagination;
-public string $search = '';
+    use WithPagination;
+    public string $search = '';
 
-public function render()
-{
-$lamarans = Lamaran::with(['user', 'lowongan'])
-->whereHas('user', function ($query) {
-$query->where('name', 'like', '%' . $this->search . '%');
-})
-->orWhereHas('lowongan', function ($query) {
-$query->where('judul_lowongan', 'like', '%' . $this->search . '%');
-})
-->latest()
-->paginate(10);
+    // Method baru untuk menghapus lamaran
+    public function delete(Lamaran $lamaran)
+    {
+        $lamaran->delete();
+        session()->flash('success', 'Lamaran berhasil dihapus.');
+    }
 
-return view('livewire.admin.lamaran.index', [
-'lamarans' => $lamarans
-]);
-}
+    // Method baru untuk ekspor Excel
+    public function exportExcel()
+    {
+        return Excel::download(new LamaransExport, 'daftar-lamaran-' . now()->format('d-m-Y') . '.xlsx');
+    }
+
+    public function render()
+    {
+        // Logika pencarian yang sudah ada dipertahankan
+        $lamarans = Lamaran::with(['user', 'lowongan'])
+            ->whereHas('user', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->orWhereHas('lowongan', function ($query) {
+                $query->where('judul_lowongan', 'like', '%' . $this->search . '%');
+            })
+            ->latest()
+            ->paginate(10);
+
+        // --- Logika baru untuk Data Chart ---
+        // Menghitung jumlah lamaran masuk dalam 7 hari terakhir
+        $lamaranMasuk = Lamaran::select(
+            DB::raw('DATE(created_at) as date'),
+            DB::raw('count(*) as count')
+        )
+            ->where('created_at', '>=', Carbon::now()->subDays(7))
+            ->groupBy('date')
+            ->orderBy('date', 'ASC')
+            ->get();
+
+        $labels = $lamaranMasuk->map(fn($item) => Carbon::parse($item->date)->format('d M'));
+        $data = $lamaranMasuk->map(fn($item) => $item->count);
+
+        $chartData = [
+            'labels' => $labels,
+            'data' => $data,
+        ];
+        // --- Akhir Logika Chart ---
+
+        return view('livewire.admin.lamaran.index', [
+            'lamarans' => $lamarans,
+            'chartData' => $chartData
+        ]);
+    }
 }

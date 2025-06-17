@@ -1,22 +1,49 @@
 <?php
-// File: app/Exports/UsersExport.php
-// Pastikan file ini ada setelah menjalankan `make:export`
 
 namespace App\Exports;
 
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class UsersExport implements FromCollection, WithHeadings
+class UsersExport implements FromCollection, WithHeadings, WithMapping
 {
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
-        return User::select('id', 'nama', 'email', 'created_at')->get();
+        // Mengambil semua data pengguna
+        return User::all();
     }
 
+    /**
+     * @return array
+     */
     public function headings(): array
     {
-        return ["ID", "Nama", "Email", "Tanggal Daftar"];
+        // Mendefinisikan judul kolom pada file Excel
+        return [
+            'ID',
+            'Nama',
+            'Email',
+            'Tanggal Daftar',
+        ];
+    }
+
+    /**
+     * @param mixed $user
+     * @return array
+     */
+    public function map($user): array
+    {
+        // Memetakan data setiap baris sesuai dengan urutan heading
+        return [
+            $user->id,
+            $user->name,
+            $user->email,
+            $user->created_at->format('d M Y, H:i'),
+        ];
     }
 }

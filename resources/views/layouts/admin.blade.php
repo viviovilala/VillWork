@@ -5,21 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin VillWork</title>
     <script src="https://cdn.tailwindcss.com"></script>
-<link rel="icon" type="image/png" href="{{ asset('storage/logowhite.png') }}">
-@livewireStyles</head>
+    <link rel="icon" type="image/png" href="{{ asset('storage/logowhite.png') }}">
+    @livewireStyles
+</head>
 <body class="bg-gray-100">
     <div class="flex">
         {{-- Sidebar --}}
-        <aside class="w-64 bg-gray-800 text-white min-h-screen p-4 flex flex-col justify-between">
+        <aside class="w-64 bg-gray-800 text-white min-h-screen p-4 flex flex-col justify-between fixed">
             <div>
-<a href="{{ route('admin.dashboard') }}" class="flex items-center text-white text-2xl font-bold mb-8">
-    <img src="{{ asset('storage/logowhite.png') }}" alt="Logo VillWork" class="h-20 w-20 mr-3">
-    <span>Admin VillWork</span>
-</a>                <nav>
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center text-white text-2xl font-bold mb-8">
+                    {{-- Logo --}}
+                    <img src="{{ asset('storage/logowhite.png') }}" alt="Logo VillWork" class="h-20 w-20 mr-3">
+                    <span>Admin VillWork</span>
+                </a>
+                <nav>
                     @auth('admin')
                         <ul class="space-y-2">
                             <li><a href="{{ route('admin.dashboard') }}" class="block p-2 rounded hover:bg-gray-700">Dashboard</a></li>
                             <li><a href="{{ route('admin.pelatihan.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Pelatihan</a></li>
+                            <li><a href="{{ route('admin.peserta-pelatihan.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Peserta Pelatihan</a></li>
                             <li><a href="{{ route('admin.user.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Pengguna</a></li>
                             <li><a href="{{ route('admin.lowongan.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Lowongan</a></li>
                             <li><a href="{{ route('admin.lamaran.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Lamaran</a></li>
@@ -38,7 +42,7 @@
         </aside>
 
         {{-- Konten Utama --}}
-        <main class="flex-1 p-10">
+        <main class="flex-1 p-10 ml-64">
             <header class="flex justify-between items-center mb-8">
                 <h2 class="text-2xl font-semibold">{{ $title ?? 'Halaman Admin' }}</h2>
                 <div>
