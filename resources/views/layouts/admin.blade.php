@@ -15,7 +15,7 @@
             <div>
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center text-white text-2xl font-bold mb-8">
                     {{-- Logo --}}
-                    <img src="{{ asset('storage/logowhite.png') }}" alt="Logo VillWork" class="h-20 w-20 mr-3">
+                    <img src="{{ asset('storage/logo_baru.png') }}" alt="Logo VillWork" class="h-10 w-10 mr-3">
                     <span>Admin VillWork</span>
                 </a>
                 <nav>
@@ -35,7 +35,7 @@
                 <div>
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
-                        <button type="submit" class="box text-center bg-red-600 w-full text-left p-2 rounded hover:bg-red-500 text-a">Logout</button>
+                        <button type="submit" class="box text-align:center bg-red-600 w-full text-left p-2 rounded hover:bg-red-500 text-a">Logout</button>
                     </form>
                 </div>
             @endauth
