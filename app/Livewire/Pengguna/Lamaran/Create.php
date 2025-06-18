@@ -1,6 +1,4 @@
 <?php
-// File 2: app/Livewire/Pengguna/Lamaran/Create.php (DIUBAH)
-// Deskripsi: Perbaikan pada metode save().
 
 namespace App\Livewire\Pengguna\Lamaran;
 
@@ -19,12 +17,17 @@ class Create extends Component
     public string $pesan = '';
 
     protected $rules = [
-        'pesan' => 'required|string|min:10|max:1000',
+        'pesan' => 'required|string',
     ];
 
     public function mount(Lowongan $lowongan)
     {
         $this->lowongan = $lowongan;
+    }
+
+    public function save()
+    {
+        $this->validate();
 
         $hasApplied = Lamaran::where('user_id', Auth::id())
             ->where('lowongan_id', $this->lowongan->id)
@@ -34,17 +37,11 @@ class Create extends Component
             session()->flash('warning', 'Anda sudah pernah melamar pada lowongan ini.');
             return redirect()->route('lamaran.index');
         }
-    }
 
-    public function save()
-    {
-        $this->validate();
-
-        // [DIPERBAIKI] Pastikan ada koma (,) di akhir setiap baris di dalam array.
         Lamaran::create([
             'user_id'     => Auth::id(),
             'lowongan_id' => $this->lowongan->id,
-            'status'      => 'Diproses', // <--- Pastikan ada koma di sini
+            'status'      => 'Diproses',
             'pesan'       => $this->pesan,
         ]);
 
