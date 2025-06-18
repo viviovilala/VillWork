@@ -16,17 +16,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                     <x-nav-link href="#">
-                        {{ __('Upload Pekerjaan') }}
+                    <x-nav-link :href="route('lowongan.index')" :active="request()->routeIs('lowongan.index')" class="text-gray-300">
+                        {{ __('Publish Lowongan') }}
                     </x-nav-link>
-                    {{-- Tambahkan link navigasi utama Anda di sini --}}
-                    <x-nav-link href="#">
-                        {{ __('Cari Lowongan') }}
+                    <x-nav-link :href="route('lamaran.index')" :active="request()->routeIs('lamar.index')" class="text-gray-300">
+                        {{ __('Lamar Pekerjaan') }}
                     </x-nav-link>
-                    <x-nav-link href="/pelatihan">
-                        {{ __('Cari Pelatihan') }}
+                    <x-nav-link :href="route('pelatihan.index')" :active="request()->routeIs('pelatihan.index')" class="text-gray-300">
+                        {{ __('Pelatihan') }}
                     </x-nav-link>
-                    {{-- [BARU] Link untuk Upload Pekerjaan --}}
                    
                 </div>
             </div>

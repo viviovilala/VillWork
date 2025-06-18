@@ -1,6 +1,6 @@
-<?php
+<?php // Pastikan ini adalah baris pertama, tanpa spasi kosong di atasnya
 
-namespace App\Models;
+namespace App\Models; // Ini harus langsung setelah <?php
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +24,7 @@ class Pelatihan extends Model
         'nama_pelatihan',
         'deskripsi',
         'tanggal_mulai',
+        'tanggal_selesai',
         'user_id',
     ];
 
@@ -34,6 +35,7 @@ class Pelatihan extends Model
      */
     protected $casts = [
         'tanggal_mulai' => 'date',
+        'tanggal_selesai' => 'date',
     ];
 
     /**

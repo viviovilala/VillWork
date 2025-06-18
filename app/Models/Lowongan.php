@@ -1,4 +1,7 @@
 <?php
+// File 1: app/Models/Lowongan.php
+// Deskripsi: Model Eloquent untuk berinteraksi dengan tabel 'lowongan'.
+// Pastikan semua kolom yang akan diisi ada di dalam properti $fillable.
 
 namespace App\Models;
 
@@ -10,34 +13,40 @@ class Lowongan extends Model
     use HasFactory;
 
     /**
-     * The table associated with the model.
-     *
-     * @var string
+     * Nama tabel di database.
      */
-    // INI BAGIAN PENTING:
-    // Memberitahu Laravel bahwa model ini terhubung ke tabel 'lowongan' (tunggal).
     protected $table = 'lowongan';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Kolom-kolom yang diizinkan untuk diisi secara massal.
+     * Ini adalah bagian penting untuk memperbaiki error 'Mass Assignment'.
      */
-    // Daftarkan semua kolom yang boleh diisi melalui form.
     protected $fillable = [
         'user_id',
         'judul_lowongan',
         'deskripsi',
-        'lokasi',
         'gaji',
+        'lokasi',
         'tanggal_mulai',
     ];
 
     /**
-     * Mendefinisikan relasi ke model User (pembuat lowongan).
+     * Memberitahu Laravel untuk memperlakukan kolom ini sebagai objek Tanggal (Carbon).
+     */
+    protected $casts = [
+        'tanggal_mulai' => 'date',
+    ];
+
+    /**
+     * Relasi ke model User (satu lowongan dimiliki oleh satu user).
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function lamarans()
+    {
+        return $this->hasMany(Lamaran::class);
     }
 }
+// ====================================================================================================

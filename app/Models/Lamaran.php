@@ -9,41 +9,28 @@ class Lamaran extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    // INI BAGIAN PENTING:
-    // Memberitahu Laravel bahwa model ini terhubung ke tabel 'lamaran' (tunggal).
-    protected $table = 'lamaran';
+    protected $table = 'lamaran'; // Memastikan nama tabelnya 'lamaran' (tunggal)
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    // Daftarkan semua kolom yang boleh diisi melalui form.
     protected $fillable = [
         'user_id',
         'lowongan_id',
-        'cv_path',
-        'status',
+        'status', // Kolom status sudah ada di DB Anda
+        'pesan',  // Kolom pesan sudah ada di DB Anda
     ];
 
     /**
-     * Mendefinisikan relasi ke model User (pelamar).
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Mendefinisikan relasi ke model Lowongan (pekerjaan yang dilamar).
+     * Get the lowongan that owns the Lamaran.
      */
     public function lowongan()
     {
-        return $this->belongsTo(Lowongan::class);
+        return $this->belongsTo(Lowongan::class, 'lowongan_id');
+    }
+
+    /**
+     * Get the user that owns the Lamaran.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -11,7 +11,7 @@
             <!-- Search and Info -->
             <div class="mb-6 px-4 sm:px-0 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-gray-600">Temukan dan daftar pada pelatihan untuk meningkatkan skill Anda.</p>
-                <a href="{{ route('pelatihan.history') }}" wire:navigate
+                <a href="pelatihan/history" wire:navigate
                     class="flex-shrink-0 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm">
                     Riwayat Pelatihan
                 </a>
