@@ -1,42 +1,66 @@
 <?php
 
-// File: app/Livewire/Admin/Dashboard.php
-// Logika diubah untuk mengambil 5 data terbaru dari setiap model.
+// [DIPERBAIKI] Namespace disesuaikan dengan lokasi file baru
+namespace App\Livewire\Pengguna;
 
-namespace App\Livewire\Admin;
-
-use App\Models\User;
-use App\Models\Lowongan;
-use App\Models\Pelatihan;
 use App\Models\Lamaran;
+use App\Models\Lowongan;
+use App\Models\PesertaPelatihan;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 
-#[Layout('layouts.admin')]
-#[Title('Admin Dashboard')]
+#[Layout('layouts.app')]
+#[Title('Dashboard Pengguna')]
 class Dashboard extends Component
 {
-    /**
-     * Render komponen.
-     *
-     * @return \Illuminate\View\View
-     */
     public function render()
     {
-        // Ambil 5 data terbaru dari setiap model untuk ditampilkan di dashboard.
-        // `with()` digunakan untuk memuat relasi dan mencegah N+1 query.
-        $latestUsers = User::latest()->take(5)->get();
-        $latestLowongan = Lowongan::with('user')->latest()->take(5)->get();
-        $latestPelatihan = Pelatihan::latest()->take(5)->get();
-        $latestLamaran = Lamaran::with(['user', 'lowongan'])->latest()->take(5)->get();
+        $userId = Auth::id();
 
-        // Kirim semua data tersebut ke view.
-        return view('livewire.admin.dashboard', [
-            'users' => $latestUsers,
-            'lowongans' => $latestLowongan,
-            'pelatihans' => $latestPelatihan,
-            'lamarans' => $latestLamaran,
+        // 1. Menghitung data untuk Stat Cards
+        $lamaranTerkirimCount = Lamaran::where('user_id', 'like', $userId)->count();
+        $pelatihanDiikutiCount = PesertaPelatihan::where('user_id', $userId)->count();
+        $lowonganDipostingCount = Lowongan::where('user_id', $userId)->count();
+
+        // Menghitung lamaran yang sudah diproses (bukan pending)
+        $lamaranDilihatCount = Lamaran::where('user_id', $userId)
+            ->where('status', '!=', 'pending')
+            ->count();
+
+        // 2. Mengambil data untuk "Aktivitas Terbaru"
+        $lamaranTerbaru = Lamaran::with('lowongan')
+            ->where('user_id', $userId)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        $pelatihanTerbaru = PesertaPelatihan::with('pelatihan')
+            ->where('user_id', $userId)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        $lowonganTerbaru = Lowongan::where('user_id', $userId)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        // Menggabungkan dan mengurutkan semua aktivitas
+        $aktivitas = $lamaranTerbaru
+            ->concat($pelatihanTerbaru)
+            ->concat($lowonganTerbaru)
+            ->sortByDesc('created_at')
+            ->take(3);
+
+        // [DIPERBAIKI] Path view disesuaikan dengan lokasi komponen
+        return view('livewire.pengguna.dashboard', [
+            'lamaranTerkirimCount' => $lamaranTerkirimCount,
+            'lamaranDilihatCount' => $lamaranDilihatCount,
+            'pelatihanDiikutiCount' => $pelatihanDiikutiCount,
+            'lowonganDipostingCount' => $lowonganDipostingCount,
+            'aktivitasTerbaru' => $aktivitas,
         ]);
     }
 }

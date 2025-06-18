@@ -9,8 +9,19 @@ class PesertaPelatihan extends Model
 {
     use HasFactory;
 
-    // Definisikan nama tabel secara eksplisit jika nama model berbeda dari nama tabel
     protected $table = 'pesertapelatihan';
+
+    /**
+     * [DITAMBAHKAN]
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'pelatihan_id',
+    ];
+
 
     /**
      * Relasi ke model User

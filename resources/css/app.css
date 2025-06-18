@@ -1,7 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
 
+/* Kode Tailwind Anda yang sudah ada biarkan di bawahnya */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* Tambahkan CSS kustom yang belum bisa dikonversi ke Tailwind di sini */
 /* Ini adalah langkah terakhir jika kelas Tailwind tidak cukup atau jika JS punya ketergantungan kuat */
 /* Sebisa mungkin, hindari ini dan gunakan kelas Tailwind */

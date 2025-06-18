@@ -16,16 +16,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="#">
+                     <x-nav-link href="#">
                         {{ __('Upload Pekerjaan') }}
-                    </x-nav-link>   
+                    </x-nav-link>
+                    {{-- Tambahkan link navigasi utama Anda di sini --}}
                     <x-nav-link href="#">
                         {{ __('Cari Lowongan') }}
                     </x-nav-link>
-                    <x-nav-link href="#">
+                    <x-nav-link href="/pelatihan">
                         {{ __('Cari Pelatihan') }}
                     </x-nav-link>
                     {{-- [BARU] Link untuk Upload Pekerjaan --}}
+                   
                 </div>
             </div>
 
