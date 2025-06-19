@@ -14,7 +14,6 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        // Mengambil semua data pengguna
         return User::all();
     }
 
@@ -23,7 +22,6 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
      */
     public function headings(): array
     {
-        // Mendefinisikan judul kolom pada file Excel
         return [
             'ID',
             'Nama',
@@ -38,7 +36,6 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
      */
     public function map($user): array
     {
-        // Memetakan data setiap baris sesuai dengan urutan heading
         return [
             $user->id,
             $user->name,

@@ -8,7 +8,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Search and Info -->
             <div class="mb-6 px-4 sm:px-0 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-gray-600">Temukan dan daftar pada pelatihan untuk meningkatkan skill Anda.</p>
                 <a href="pelatihan/history" wire:navigate
@@ -20,8 +19,6 @@
                         placeholder="Cari pelatihan..." />
                 </div>
             </div>
-
-            <!-- Session Messages -->
             @if (session('success'))
                 <div class="mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
                     <p class="font-bold">Sukses</p>
@@ -34,8 +31,6 @@
                     <p>{{ session('warning') }}</p>
                 </div>
             @endif
-
-            <!-- Training Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse ($pelatihans as $pelatihan)
                     <div wire:key="{{ $pelatihan->id }}"
@@ -68,8 +63,6 @@
                     </div>
                 @endforelse
             </div>
-
-            <!-- Pagination Links -->
             <div class="mt-8">
                 {{ $pelatihans->links() }}
             </div>

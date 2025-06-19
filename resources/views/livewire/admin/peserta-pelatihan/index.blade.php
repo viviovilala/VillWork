@@ -1,12 +1,9 @@
 <div>
-    {{-- Notifikasi --}}
     @if (session('success'))
         <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
             {{ session('success') }}
         </div>
     @endif
-
-    {{-- Chart Section --}}
     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg mb-6">
         <h2 class="text-xl font-semibold mb-4">Pendaftaran Peserta (7 Hari Terakhir)</h2>
         <div >

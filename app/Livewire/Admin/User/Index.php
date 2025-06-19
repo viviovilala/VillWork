@@ -1,7 +1,5 @@
 <?php
 
-// File: app/Livewire/Admin/User/Index.php
-// Logika untuk menampilkan dan mengelola semua pengguna.
 
 namespace App\Livewire\Admin\User;
 
@@ -11,7 +9,6 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 
-// Tambahkan use statement untuk export dan chart
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
@@ -24,11 +21,8 @@ class Index extends Component
     use WithPagination;
 
     public string $search = '';
-
-    // Method delete Anda yang sudah ada dipertahankan
     public function delete(User $user): void
     {
-        // Untuk keamanan, kita tidak akan menghapus admin utama
         if ($user->email === 'admin@gmail.com') {
             session()->flash('error', 'Akun admin utama tidak dapat dihapus.');
             return;
@@ -38,7 +32,6 @@ class Index extends Component
         session()->flash('success', 'Pengguna berhasil dihapus.');
     }
 
-    // Method baru untuk trigger download Excel
     public function exportExcel()
     {
         return Excel::download(new UsersExport, 'daftar-pengguna-' . now()->format('d-m-Y') . '.xlsx');

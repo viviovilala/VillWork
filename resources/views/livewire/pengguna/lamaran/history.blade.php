@@ -1,4 +1,3 @@
-
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -17,10 +16,14 @@
                     <table class="min-w-full">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Posisi Dilamar</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Perusahaan</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal Melamar</th>
-                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Posisi
+                                    Dilamar</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Perusahaan
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal
+                                    Melamar</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Status
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -36,7 +39,8 @@
                                         {{ $lamaran->created_at?->format('d M Y') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
-                                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                        <span
+                                            class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
                                             @switch($lamaran->status)
                                                 @case('diterima')
                                                     bg-green-100 text-green-800

@@ -12,9 +12,6 @@ class PesertaPelatihan extends Model
     protected $table = 'pesertapelatihan';
 
     /**
-     * [DITAMBAHKAN]
-     * The attributes that are mass assignable.
-     *
      * @var array<int, string>
      */
     protected $fillable = [
@@ -22,18 +19,10 @@ class PesertaPelatihan extends Model
         'pelatihan_id',
     ];
 
-
-    /**
-     * Relasi ke model User
-     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    /**
-     * Relasi ke model Pelatihan
-     */
     public function pelatihan()
     {
         return $this->belongsTo(Pelatihan::class, 'pelatihan_id');

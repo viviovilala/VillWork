@@ -8,11 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Pelatihan extends Model
 {
     use HasFactory;
-
-    /**
-     * [DIPERBAIKI]
-     * Mendefinisikan nama tabel secara eksplisit karena tidak mengikuti konvensi jamak Laravel.
-     */
     protected $table = 'pelatihan';
 
     /**
@@ -38,9 +33,6 @@ class Pelatihan extends Model
         'tanggal_selesai' => 'date',
     ];
 
-    /**
-     * Mendefinisikan relasi bahwa satu Pelatihan dimiliki oleh satu User.
-     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -42,7 +42,6 @@ class Index extends Component
             ->latest()
             ->paginate(10);
 
-        // --- Logika Chart ---
         $pendaftaran = PesertaPelatihan::select(
             DB::raw('DATE(created_at) as date'),
             DB::raw('count(*) as count')

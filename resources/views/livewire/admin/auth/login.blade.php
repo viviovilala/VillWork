@@ -2,21 +2,17 @@
     <!-- Session Status (untuk pesan seperti reset password) -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <!-- Form dihubungkan dengan `wire:submit` ke method `login` -->
     <form wire:submit="login">
-        <!-- Judul Tambahan -->
         <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold">Admin Panel Login</h1>
+            <h1 class="text-2xl font-bold">Admin Login</h1>
         </div>
 
-        <!-- Input Email -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" wire:model="email" required autofocus />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Input Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
             <x-text-input id="password" class="block mt-1 w-full"
@@ -26,7 +22,6 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Checkbox Remember Me -->
         <div class="block mt-4">
             <label for="remember" class="inline-flex items-center">
                 <input id="remember" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" wire:model="remember">
@@ -34,7 +29,6 @@
             </label>
         </div>
         <div class="flex items-center justify-end mt-4">
-            <!-- Tombol Login -->
             <x-primary-button class="ms-3">
                 <span wire:loading.remove wire:target="login">
                     {{ __('Masuk') }}

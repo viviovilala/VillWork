@@ -1,7 +1,4 @@
 <?php
-// File 2: app/Livewire/Pengguna/Lowongan/Index.php (DIUBAH)
-// Deskripsi: Komponen untuk halaman "Lowongan Saya", menampilkan lowongan yang telah diposting oleh pengguna.
-
 namespace App\Livewire\Pengguna\Lowongan;
 
 use App\Models\Lowongan;
@@ -20,10 +17,9 @@ class Index extends Component
 
     public function render()
     {
-        // Mengambil lowongan yang HANYA dibuat oleh pengguna yang sedang login
         $myLowongans = Lowongan::where('user_id', Auth::id())
             ->where('judul_lowongan', 'like', '%' . $this->search . '%')
-            ->withCount('lamarans') // Menghitung jumlah pelamar
+            ->withCount('lamarans') 
             ->latest()
             ->paginate(10);
 
@@ -32,4 +28,3 @@ class Index extends Component
         ]);
     }
 }
-// ====================================================================================================

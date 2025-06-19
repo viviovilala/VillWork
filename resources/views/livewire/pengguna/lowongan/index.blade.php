@@ -49,7 +49,6 @@
                     </table>
                 </div>
             </div>
-
             <div class="mt-8">{{ $myLowongans->links() }}</div>
         </div>
     </div>

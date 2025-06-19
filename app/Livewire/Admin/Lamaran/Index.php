@@ -8,7 +8,6 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 
-// Tambahkan use statement yang diperlukan
 use App\Exports\LamaransExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
@@ -21,14 +20,12 @@ class Index extends Component
     use WithPagination;
     public string $search = '';
 
-    // Method baru untuk menghapus lamaran
     public function delete(Lamaran $lamaran)
     {
         $lamaran->delete();
         session()->flash('success', 'Lamaran berhasil dihapus.');
     }
 
-    // Method baru untuk ekspor Excel
     public function exportExcel()
     {
         return Excel::download(new LamaransExport, 'daftar-lamaran-' . now()->format('d-m-Y') . '.xlsx');
@@ -36,7 +33,6 @@ class Index extends Component
 
     public function render()
     {
-        // Logika pencarian yang sudah ada dipertahankan
         $lamarans = Lamaran::with(['user', 'lowongan'])
             ->whereHas('user', function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
@@ -47,8 +43,6 @@ class Index extends Component
             ->latest()
             ->paginate(10);
 
-        // --- Logika baru untuk Data Chart ---
-        // Menghitung jumlah lamaran masuk dalam 7 hari terakhir
         $lamaranMasuk = Lamaran::select(
             DB::raw('DATE(created_at) as date'),
             DB::raw('count(*) as count')
@@ -65,7 +59,6 @@ class Index extends Component
             'labels' => $labels,
             'data' => $data,
         ];
-        // --- Akhir Logika Chart ---
 
         return view('livewire.admin.lamaran.index', [
             'lamarans' => $lamarans,

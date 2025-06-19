@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\peserta_pelatihan;
+use App\Models\PesertaPelatihan;
 use Illuminate\Http\Request;
 
 class PesertaPelatihanController extends Controller
@@ -34,7 +34,7 @@ class PesertaPelatihanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(peserta_pelatihan $peserta_pelatihan)
+    public function show(PesertaPelatihan $PesertaPelatihan)
     {
         //
     }
@@ -42,7 +42,7 @@ class PesertaPelatihanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(peserta_pelatihan $peserta_pelatihan)
+    public function edit(PesertaPelatihan $PesertaPelatihan)
     {
         //
     }
@@ -50,7 +50,7 @@ class PesertaPelatihanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, peserta_pelatihan $peserta_pelatihan)
+    public function update(Request $request, PesertaPelatihan $PesertaPelatihan)
     {
         //
     }
@@ -58,7 +58,7 @@ class PesertaPelatihanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(peserta_pelatihan $peserta_pelatihan)
+    public function destroy(PesertaPelatihan $PesertaPelatihan)
     {
         //
     }

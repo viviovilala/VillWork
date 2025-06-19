@@ -1,6 +1,4 @@
 <?php
-
-// [DIPERBAIKI] Namespace disesuaikan dengan lokasi file baru
 namespace App\Livewire\Pengguna;
 
 use App\Models\Lamaran;
@@ -19,17 +17,14 @@ class Dashboard extends Component
     {
         $userId = Auth::id();
 
-        // 1. Menghitung data untuk Stat Cards
         $lamaranTerkirimCount = Lamaran::where('user_id', 'like', $userId)->count();
         $pelatihanDiikutiCount = PesertaPelatihan::where('user_id', $userId)->count();
         $lowonganDipostingCount = Lowongan::where('user_id', $userId)->count();
 
-        // Menghitung lamaran yang sudah diproses (bukan pending)
         $lamaranDilihatCount = Lamaran::where('user_id', $userId)
             ->where('status', '!=', 'pending')
             ->count();
 
-        // 2. Mengambil data untuk "Aktivitas Terbaru"
         $lamaranTerbaru = Lamaran::with('lowongan')
             ->where('user_id', $userId)
             ->latest()
@@ -47,14 +42,11 @@ class Dashboard extends Component
             ->take(3)
             ->get();
 
-        // Menggabungkan dan mengurutkan semua aktivitas
         $aktivitas = $lamaranTerbaru
             ->concat($pelatihanTerbaru)
             ->concat($lowonganTerbaru)
             ->sortByDesc('created_at')
             ->take(3);
-
-        // [DIPERBAIKI] Path view disesuaikan dengan lokasi komponen
         return view('livewire.pengguna.dashboard', [
             'lamaranTerkirimCount' => $lamaranTerkirimCount,
             'lamaranDilihatCount' => $lamaranDilihatCount,

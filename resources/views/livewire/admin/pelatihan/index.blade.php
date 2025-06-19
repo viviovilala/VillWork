@@ -23,14 +23,9 @@
     {{-- Area Tabel Data --}}
     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
         <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
-            {{-- [PERBAIKAN] Judul tabel disesuaikan --}}
             <h2 class="text-xl font-semibold">Daftar Pelatihan</h2>
             <div class="flex items-center gap-2 w-full md:w-auto">
-
-                {{-- [PERBAIKAN] Placeholder pencarian disesuaikan --}}
                 <x-text-input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari nama pelatihan..." class="w-full md:w-auto" />
-                
-                {{-- [PERBAIKAN] Method wire:click disamakan agar konsisten --}}
                 <button wire:click="exportExcel" class="flex-shrink-0 inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500 active:bg-green-700 focus:outline-none focus:border-green-700 focus:ring focus:ring-green-200 disabled:opacity-25 transition">
                     Unduh Excel
                 </button>
@@ -52,7 +47,6 @@
                     @forelse ($pelatihans as $pelatihan)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $pelatihan->nama_pelatihan }}</td>
-                            {{-- [PERBAIKAN] Ditambah pengecekan null untuk tanggal agar lebih aman --}}
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $pelatihan->tanggal_mulai?->format('d M Y') ?? 'N/A' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('admin.pelatihan.edit', $pelatihan) }}" wire:navigate class="text-indigo-600 hover:text-indigo-900">Edit</a>
@@ -73,8 +67,6 @@
         </div>
     </div>
 </div>
-
-{{-- [PERBAIKAN] Script Chart diperbaiki secara keseluruhan --}}
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -100,7 +92,6 @@
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            // Memastikan sumbu Y hanya menampilkan bilangan bulat
                             stepSize: 1
                         }
                     }

@@ -1,6 +1,4 @@
 <?php
-
-// [DIPERBAIKI] Namespace disesuaikan dengan struktur folder
 namespace App\Livewire\Pengguna\Pelatihan;
 
 use App\Models\PesertaPelatihan;
@@ -34,7 +32,6 @@ class History extends Component
             ->latest()
             ->get();
 
-        // [DIPERBAIKI] Path view disesuaikan
         return view('livewire.pengguna.pelatihan.history', [
             'pelatihanTerdaftar' => $pelatihanTerdaftar,
         ]);

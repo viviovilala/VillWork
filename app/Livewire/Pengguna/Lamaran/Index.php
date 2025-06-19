@@ -1,8 +1,4 @@
 <?php
-// File 1: app/Livewire/Pengguna/Lamaran/Index.php (DIREVISI)
-// Deskripsi: Komponen ini sekarang hanya bertugas untuk menampilkan daftar lowongan.
-// Logika untuk 'apply' telah dihapus dari sini.
-
 namespace App\Livewire\Pengguna\Lamaran;
 
 use App\Models\Lowongan;
@@ -18,7 +14,6 @@ class Index extends Component
     use WithPagination;
     public string $search = '';
 
-    // Metode 'apply()' telah dihapus dari sini karena sekarang ditangani oleh form terpisah.
 
     public function render()
     {
@@ -36,5 +31,4 @@ class Index extends Component
         ]);
     }
 }
-// ====================================================================================================
 ?>

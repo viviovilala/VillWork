@@ -14,7 +14,6 @@ class LowongansExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        // Mengambil semua data lowongan dengan relasi user-nya
         return Lowongan::with('user')->get();
     }
 
@@ -23,7 +22,6 @@ class LowongansExport implements FromCollection, WithHeadings, WithMapping
      */
     public function headings(): array
     {
-        // [DIPERBAIKI] Judul kolom disesuaikan dengan struktur tabel yang benar
         return [
             'ID',
             'Judul Lowongan',
@@ -48,8 +46,8 @@ class LowongansExport implements FromCollection, WithHeadings, WithMapping
             $lowongan->deskripsi,
             $lowongan->gaji,
             $lowongan->lokasi,
-            $lowongan->user?->name ?? 'N/A', // Ditambah nullsafe operator untuk keamanan
-            $lowongan->created_at?->format('d M Y') ?? 'N/A', // Ditambah nullsafe operator untuk keamanan
+            $lowongan->user?->name ?? 'N/A', 
+            $lowongan->created_at?->format('d M Y') ?? 'N/A', 
         ];
     }
 }

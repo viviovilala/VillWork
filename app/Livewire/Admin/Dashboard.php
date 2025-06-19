@@ -17,7 +17,6 @@ class Dashboard extends Component
 {
     public function render()
     {
-        // Mengambil 5 data terbaru dari setiap model
         $users = User::latest()->take(5)->get();
         $pelatihans = Pelatihan::latest()->take(5)->get();
         $lowongans = Lowongan::with('user')->latest()->take(5)->get();

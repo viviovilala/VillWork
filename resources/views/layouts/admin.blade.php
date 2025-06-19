@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="icon" type="image/png" href="{{ asset('storage/logowhite.png') }}">
     @livewireStyles
 </head>
+
 <body class="bg-gray-100">
     <div class="flex">
         {{-- Sidebar --}}
@@ -21,12 +23,18 @@
                 <nav>
                     @auth('admin')
                         <ul class="space-y-2">
-                            <li><a href="{{ route('admin.dashboard') }}" class="block p-2 rounded hover:bg-gray-700">Dashboard</a></li>
-                            <li><a href="{{ route('admin.pelatihan.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Pelatihan</a></li>
-                            <li><a href="{{ route('admin.peserta-pelatihan.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Peserta Pelatihan</a></li>
-                            <li><a href="{{ route('admin.user.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Pengguna</a></li>
-                            <li><a href="{{ route('admin.lowongan.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Lowongan</a></li>
-                            <li><a href="{{ route('admin.lamaran.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola Lamaran</a></li>
+                            <li><a href="{{ route('admin.dashboard') }}"
+                                    class="block p-2 rounded hover:bg-gray-700">Dashboard</a></li>
+                            <li><a href="{{ route('admin.pelatihan.index') }}"
+                                    class="block p-2 rounded hover:bg-gray-700">Kelola Pelatihan</a></li>
+                            <li><a href="{{ route('admin.peserta-pelatihan.index') }}"
+                                    class="block p-2 rounded hover:bg-gray-700">Kelola Peserta Pelatihan</a></li>
+                            <li><a href="{{ route('admin.user.index') }}" class="block p-2 rounded hover:bg-gray-700">Kelola
+                                    Pengguna</a></li>
+                            <li><a href="{{ route('admin.lowongan.index') }}"
+                                    class="block p-2 rounded hover:bg-gray-700">Kelola Lowongan</a></li>
+                            <li><a href="{{ route('admin.lamaran.index') }}"
+                                    class="block p-2 rounded hover:bg-gray-700">Kelola Lamaran</a></li>
                         </ul>
                     @endauth
                 </nav>
@@ -35,13 +43,13 @@
                 <div>
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
-                        <button type="submit" class="box text-center bg-red-600 w-full text-left p-2 rounded hover:bg-red-500 text-a">Logout</button>
+                        <button type="submit"
+                            class="box text-center bg-red-600 w-full text-left p-2 rounded hover:bg-red-500 text-a">Logout</button>
                     </form>
                 </div>
             @endauth
         </aside>
 
-        {{-- Konten Utama --}}
         <main class="flex-1 p-10 ml-64">
             <header class="flex justify-between items-center mb-8">
                 <h2 class="text-2xl font-semibold">{{ $title ?? 'Halaman Admin' }}</h2>
@@ -51,7 +59,7 @@
                     @endauth
                 </div>
             </header>
-            
+
             <div class="bg-white p-6 rounded-lg shadow-md">
                 {{ $slot }}
             </div>
@@ -60,4 +68,5 @@
     @livewireScripts
     @stack('scripts')
 </body>
+
 </html>

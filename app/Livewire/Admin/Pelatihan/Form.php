@@ -55,13 +55,6 @@ class Form extends Component
 
     public function save()
     {
-        // --- DEBUGGING: CEK APAKAH METHOD SAVE TERPANGGIL ---
-        // Ini akan muncul setiap kali tombol submit ditekan.
-        // Jika ini tidak muncul, ada masalah pada wire:submit="save" di form Anda.
-   
-        // --- AKHIR DEBUGGING ---
-
-        // Pindahkan validasi ke setelah dd() sementara untuk debugging
         $validatedData = $this->validate();
 
         Log::info('Validated data for Pelatihan save:', $validatedData);

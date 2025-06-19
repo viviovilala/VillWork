@@ -1,12 +1,10 @@
 <div>
-    {{-- Notifikasi --}}
     @if (session('success'))
         <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
             {{ session('success') }}
         </div>
     @endif
 
-    {{-- Chart Section --}}
     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg mb-6">
         <h2 class="text-xl font-semibold mb-4">Lamaran Masuk (7 Hari Terakhir)</h2>
         <div >
@@ -14,7 +12,6 @@
         </div>
     </div>
 
-    {{-- Tabel Section --}}
     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
         <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
             <h2 class="text-xl font-semibold">Daftar Lamaran Masuk</h2>
@@ -43,7 +40,6 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $lamaran->user?->name ?? 'N/A' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $lamaran->lowongan?->judul_lowongan ?? 'N/A' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{-- Contoh Tampilan Status --}}
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                                     {{ $lamaran->status == 'diterima' ? 'bg-green-100 text-green-800' : ($lamaran->status == 'ditolak' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800') }}">
                                     {{ ucfirst($lamaran->status) }}

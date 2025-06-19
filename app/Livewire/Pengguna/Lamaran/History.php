@@ -1,7 +1,4 @@
 <?php
-// File 1: app/Livewire/Pengguna/Lamaran/History.php (BARU)
-// Deskripsi: Komponen untuk halaman 'Riwayat Lamaran Saya'.
-
 namespace App\Livewire\Pengguna\Lamaran;
 
 use App\Models\Lamaran;
@@ -16,8 +13,6 @@ class History extends Component
 {
     public function render()
     {
-        // Mengambil semua data lamaran milik pengguna yang sedang login
-        // 'with('lowongan.user')' akan memuat data lowongan dan data user (perusahaan) yang mempostingnya
         $myApplications = Lamaran::where('user_id', Auth::id())
             ->with('lowongan.user')
             ->latest()
@@ -28,4 +23,4 @@ class History extends Component
         ]);
     }
 }
-// ====================================================================================================
+?>

@@ -1,21 +1,15 @@
 <div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            
-            <!-- Welcome Banner -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900 bg-gradient-to-r from-gray-800 to-gray-600 text-white rounded-lg">
                     <h3 class="text-2xl font-bold">Selamat datang kembali, {{ Auth::user()->name }}!</h3>
                     <p class="mt-1 text-indigo-200">Senang melihat Anda lagi. Mari kita lihat aktivitas terbaru Anda.</p>
                 </div>
             </div>
-
-            <!-- Stat Cards dengan Ikon Boxicons -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <!-- Card 1: Lamaran Terkirim -->
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow flex items-start space-x-4">
                     <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
-                        {{-- INI KODE UNTUK IKONNYA --}}
                         <i class='bx bxs-file-blank text-2xl'></i>
                     </div>
                     <div>
@@ -23,11 +17,8 @@
                         <p class="text-2xl font-bold">{{ $lamaranTerkirimCount }}</p>
                     </div>
                 </div>
-
-                <!-- Card 2: Lowongan Diposting -->
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow flex items-start space-x-4">
                     <div class="bg-red-100 text-red-600 p-3 rounded-full">
-                        {{-- INI KODE UNTUK IKONNYA --}}
                         <i class='bx bxs-megaphone text-2xl'></i>
                     </div>
                     <div>
@@ -35,11 +26,8 @@
                         <p class="text-2xl font-bold">{{ $lowonganDipostingCount }}</p>
                     </div>
                 </div>
-
-                <!-- Card 3: Pelatihan Diikuti -->
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow flex items-start space-x-4">
                     <div class="bg-purple-100 text-purple-600 p-3 rounded-full">
-                        {{-- INI KODE UNTUK IKONNYA --}}
                         <i class='bx bxs-certification text-2xl'></i>
                     </div>
                     <div>
@@ -48,8 +36,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Aktivitas Terbaru dengan Ikon Boxicons -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h3 class="text-xl font-semibold mb-4">Aktivitas Terbaru Anda</h3>

@@ -1,7 +1,4 @@
 <?php
-// File 3: app/Livewire/Pengguna/Lowongan/History.php
-// Deskripsi: Komponen untuk halaman 'Kelola Lowongan Saya' (Riwayat).
-
 namespace App\Livewire\Pengguna\Lowongan;
 
 use App\Models\Lowongan;
@@ -39,19 +36,14 @@ class History extends Component
 
     public function updateStatus($lamaranId, $newStatus)
     {
-        // Pastikan status yang diberikan valid
         if (!in_array($newStatus, ['diterima', 'ditolak'])) {
             return;
         }
 
         $lamaran = Lamaran::find($lamaranId);
-
-        // Validasi tambahan: pastikan pengguna hanya bisa mengubah status lamaran pada lowongan miliknya
         if ($lamaran && $lamaran->lowongan->user_id == Auth::id()) {
             $lamaran->status = $newStatus;
             $lamaran->save();
-
-            // Refresh daftar pelamar untuk menampilkan status baru
             $this->viewApplicants($lamaran->lowongan_id);
             session()->flash('status_success', 'Status pelamar berhasil diperbarui.');
         }
@@ -62,4 +54,4 @@ class History extends Component
         return view('livewire.pengguna.lowongan.history');
     }
 }
-// ====================================================================================================
+?>
