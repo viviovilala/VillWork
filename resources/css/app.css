@@ -32,7 +32,6 @@
 }
 */
 
-/* Kelas-kelas yang digerakkan JavaScript atau kompleks */
 .show-menu {
     opacity: 1;
     top: 3.5rem;
@@ -49,16 +48,14 @@
     transform: rotate(90deg);
 }
 
-/* Jika Anda ingin menggunakan 'max-height-1000' yang tidak standar Tailwind */
 .max-height-1000 {
-    max-height: 1000px !important; /* Gunakan !important jika perlu menimpa inline style */
+    max-height: 1000px !important; 
 }
 
 .rotate-180 {
     transform: rotate(180deg);
 }
 
-/* Jika Anda ingin mengonversi @media screen dan (max-width: 1118px) untuk nav__menu */
 @media screen and (max-width: 1118px) {
     .nav__menu {
         position: absolute;
@@ -80,7 +77,6 @@
     }
 }
 
-/* Jika Anda ingin mengonversi @media screen and (min-width: 1118px) untuk nav */
 @media screen and (min-width: 1118px) {
     .nav {
         height: calc(3.5rem + 2rem); /* calc(var(--header-height) + 2rem) */

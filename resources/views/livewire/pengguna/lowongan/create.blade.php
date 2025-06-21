@@ -29,7 +29,7 @@
                                     <x-input-error :messages="$errors->get('gaji')" class="mt-2" />
                                 </div>
                                 <div>
-                                    <x-input-label for="lokasi" :value="__('Lokasi')" />
+                                    <x-input-label for="lokasi" :value="__('Tanggal Mu')" />
                                     <x-text-input wire:model="lokasi" id="lokasi" type="text" class="mt-1 block w-full" placeholder="Contoh: Jakarta, Indonesia" />
                                     <x-input-error :messages="$errors->get('lokasi')" class="mt-2" />
                                 </div>

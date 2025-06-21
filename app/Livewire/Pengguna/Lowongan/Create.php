@@ -39,7 +39,7 @@ class Create extends Component
         Lowongan::create($validatedData);
 
         session()->flash('success', 'Lowongan berhasil di-publish!');
-        return redirect()->route('lowongan.index'); 
+        return redirect()->route('lowongan.index'); // Redirect ke dashboard setelah berhasil
     }
 
     public function render()
@@ -47,4 +47,3 @@ class Create extends Component
         return view('livewire.pengguna.lowongan.create');
     }
 }
-?>
