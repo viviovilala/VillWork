@@ -52,8 +52,7 @@
                                                 Nama Pelamar</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                                                 Status</th>
-                                            <th
-                                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">
+                                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">
                                                 Aksi</th>
                                         </tr>
                                     </thead>
@@ -62,28 +61,38 @@
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <p class="text-sm font-medium text-gray-900">
-                                                        {{ $lamaran->user?->name ?? 'N/A' }}</p>
+                                                        {{ $lamaran->user?->name ?? 'N/A' }}
+                                                    </p>
                                                     <p class="text-sm text-gray-500">
-                                                        {{ $lamaran->user?->email ?? 'N/A' }}</p>
+                                                        {{ $lamaran->user?->email ?? 'N/A' }}
+                                                    </p>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     <span
-                                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                                        {{ $lamaran->status == 'diterima' ? 'bg-green-100 text-green-800' : ($lamaran->status == 'ditolak' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800') }}">
+                                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                                                {{ $lamaran->status == 'diterima' ? 'bg-green-100 text-green-800' : ($lamaran->status == 'ditolak' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800') }}">
                                                         {{ ucfirst($lamaran->status) }}
                                                     </span>
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
                                                     <button wire:click="updateStatus({{ $lamaran->id }}, 'diterima')"
-                                                        class="text-green-600 hover:text-green-900"
-                                                        title="Terima Lamaran">
+                                                        class="text-green-600 hover:text-green-900" title="Terima Lamaran">
                                                         <i class='bx bx-check-circle text-xl'></i>
                                                     </button>
                                                     <button wire:click="updateStatus({{ $lamaran->id }}, 'ditolak')"
                                                         class="text-red-600 hover:text-red-900" title="Tolak Lamaran">
                                                         <i class='bx bx-x-circle text-xl'></i>
                                                     </button>
+                                                    {{-- Add the Chat Button for Job Provider --}}
+                                                    @if ($lamaran->user) {{-- Ensure the applicant user exists --}}
+                                                        <a href="{{ route('chat.room', ['lowongan' => $selectedLowongan->id, 'user' => $lamaran->user->id]) }}"
+                                                            wire:navigate
+                                                            class="text-blue-600 hover:text-blue-900 inline-block align-middle"
+                                                            title="Chat Pelamar">
+                                                            <i class='bx bx-chat text-xl'></i>
+                                                        </a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @empty

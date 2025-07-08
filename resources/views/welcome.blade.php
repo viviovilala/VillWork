@@ -86,10 +86,6 @@
         </div>
     </section>
 
-    @auth
-        @livewire('pengguna.dashboard')
-    @endauth
-
     <section id="fitur" class="py-20 bg-gradient-to-br from-white via-gray-50 to-gray-100">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -134,7 +130,6 @@
             </div>
         </div>
     </section>
-
 
     <section id="cara-daftar" class="bg-white py-24">
         <div class="container mx-auto px-6 text-center">

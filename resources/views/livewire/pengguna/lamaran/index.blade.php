@@ -39,7 +39,9 @@
                         class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col">
                         <div class="p-6 flex-grow">
                             <div class="text-sm text-gray-500 font-semibold tracking-wide uppercase">
-                                {{ $lowongan->user?->name ?? 'Perusahaan' }}</div>
+                                {{-- Ensure $lowongan->user is not null before accessing its properties --}}
+                                {{ $lowongan->user->name ?? 'Perusahaan Tidak Diketahui' }}
+                            </div>
                             <h3 class="mt-1 text-xl leading-tight font-bold text-black">{{ $lowongan->judul_lowongan }}
                             </h3>
                             <p class="mt-2 text-gray-600 text-sm flex-grow">{{ Str::limit($lowongan->deskripsi, 120) }}
@@ -52,11 +54,22 @@
                                     class='bx bxs-wallet mr-2 text-lg'></i><span>Rp
                                     {{ number_format($lowongan->gaji, 0, ',', '.') }}</span></div>
                         </div>
-                        <div class="px-6 pb-6 pt-3 bg-gray-50">
+                        <div class="px-6 pb-6 pt-3 bg-gray-50 flex space-x-2"> {{-- Added flex and space-x-2 here --}}
                             <a href="{{ route('lamaran.create', $lowongan) }}" wire:navigate
-                                class="block text-center w-full bg-indigo-600 text-white px-4 py-2 text-sm font-semibold rounded-lg hover:bg-indigo-700 transition-colors">
+                                class="flex-1 text-center bg-indigo-600 text-white px-4 py-2 text-sm font-semibold rounded-lg hover:bg-indigo-700 transition-colors">
                                 Lamar Sekarang
                             </a>
+                            {{-- Add the Chat Button --}}
+                            @auth
+                                {{-- Check if the current user is not the job poster --}}
+                                @if (Auth::id() !== $lowongan->user_id)
+                                    <a href="{{ route('chat.room', ['lowongan' => $lowongan->id, 'user' => $lowongan->user_id]) }}"
+                                        wire:navigate
+                                        class="flex-1 text-center bg-blue-500 text-white px-4 py-2 text-sm font-semibold rounded-lg hover:bg-blue-600 transition-colors">
+                                        Chat Penyedia
+                                    </a>
+                                @endif
+                            @endauth
                         </div>
                     </div>
                 @empty
